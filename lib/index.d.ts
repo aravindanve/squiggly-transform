@@ -11,4 +11,4 @@ export interface TransformOptions {
     undefinedToNull?: boolean;
     emptyObjectToNull?: boolean;
 }
-export declare function makeTransform<S extends {}, T extends {}>(transformMap: TransformMap<T, S>, options?: TransformOptions): Transform<S, T>;
+export declare function squiggly<S extends {}, T extends {}>(transformMap: TransformMap<T, S>, options?: TransformOptions): Transform<S, T>;
