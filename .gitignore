@@ -1,0 +1,25 @@
+# npm
+node_modules
+*.log
+*.gz
+
+# coverage
+/coverage
+.nyc_output
+
+# macos
+.DS_Store*
+Icon?
+._*
+
+# windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# linux
+.directory
+*~
+
+# vscode
+.vscode
