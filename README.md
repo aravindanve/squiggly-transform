@@ -79,6 +79,8 @@ const transform = squiggly<Source, Target>({
   /* transform with function */
   count: count => count + 1, // transforms and copies value
 
+  static: () => 'Some Text', // sets static value
+
   /* map and transform with [json-pointer, function] tuple */
   categoryId: ['#/category', value => getCategoryId(value)]
   /* ^ a tuple of json-pointer and function allows you to
