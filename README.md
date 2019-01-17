@@ -102,9 +102,11 @@ transform({ name: 'Amy' }) // = { name: 'Amy', age: null }
 
 ```
 
-__`emptyObjectToNull`__
+__`noEmptyObjects`__
 
-falls back to `null` for all objects with no keys or with all keys set to `undefined` or `null`.
+* falls back to `undefined` for all objects with no keys or with all keys set to `undefined` or `null`.
+
+* when `undefinedToNull` is `true`, falls back to `null` for all objects with no keys or with all keys set to `undefined` or `null`.
 
 ```ts
 const transform = squiggly({
@@ -112,11 +114,11 @@ const transform = squiggly({
   profile: { age: true, zipcode: true }
 
 }, {
-  emptyObjectToNull: true
+  noEmptyObjects: true
 });
 
-transform({}) // = { name: undefined, profile: null }
-transform({ name: 'Amy' }) // = { name: 'Amy', profile: null }
+transform({}) // = { name: undefined, profile: undefined }
+transform({ name: 'Amy' }) // = { name: 'Amy', profile: undefined }
 transform({ profile: { age: 26 } }) // = { name: undefined, profile: { age: 26 } }
 ```
 

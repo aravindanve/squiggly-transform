@@ -4,10 +4,11 @@
         "noImplicitAny": false,
         "declaration": true,
         "esModuleInterop": true,
+        "strictNullChecks": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outDir": "lib/",
+        "outDir": "lib/"
     },
     "include": [
         "src/**/*"

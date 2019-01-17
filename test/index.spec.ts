@@ -232,8 +232,8 @@ describe('option: undefinedToNull', () => {
   });
 });
 
-describe('option: emptyObjectToNull', () => {
-  it('must set empty objects to null', () => {
+describe('option: noEmptyObjects', () => {
+  it('must set empty objects to undefined', () => {
     const transform = squiggly({
       object1: {
         value1: true,
@@ -245,13 +245,13 @@ describe('option: emptyObjectToNull', () => {
       }
 
     }, {
-      emptyObjectToNull: true
+      noEmptyObjects: true
     });
 
-    expect(transform({}).object1).to.equal(null);
-    expect(transform({}).object2).to.equal(null);
-    expect(transform({ object1: { value2: 2354 } }).object1).to.equal(null);
-    expect(transform({ object1: { value2: 2354 } }).object2).to.not.equal(null);
+    expect(transform({}).object1).to.equal(undefined);
+    expect(transform({}).object2).to.equal(undefined);
+    expect(transform({ object1: { value2: 2354 } }).object1).to.equal(undefined);
+    expect(transform({ object1: { value2: 2354 } }).object2).to.not.equal(undefined);
   });
 
   it('must set empty objects to null with undefinedToNull enabled', () => {
@@ -267,7 +267,7 @@ describe('option: emptyObjectToNull', () => {
 
     }, {
       undefinedToNull: true,
-      emptyObjectToNull: true
+      noEmptyObjects: true
     });
 
     expect(transform({}).object1).to.equal(null);

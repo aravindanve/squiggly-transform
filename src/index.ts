@@ -10,24 +10,24 @@ export type TransformRuleSimple<L, R> =
   TransformCustom<L, R> |
   TransformTuple<L>;
 
-export type TransformRule<T extends {}, S extends {}, K extends keyof T> =
+export type TransformRule<T extends {}, S extends {} | null | undefined, K extends keyof T> =
   K extends keyof S
     ? TransformRuleSimple<T[K], S[K]> | TransformMap<T[K], S[K]>
     : TransformRuleSimple<T[K], undefined> | TransformMap<T[K], undefined>;
 
-export type TransformMap<T extends {}, S extends {}> = {
+export type TransformMap<T extends {}, S extends {} | null | undefined> = {
   [K in keyof T]: TransformRule<T, S, K> | T[K];
 };
 
-export type TransformItem<T extends {}, S extends {}> =
+export type TransformItem<T extends {}, S extends {} | null | undefined> =
   (target: T, source: S, parents: any[], path: string[]) => void;
 
-export type Transform<S extends {}, T extends {}> =
+export type Transform<S extends {} | null | undefined, T extends {}> =
   (source: S, parents?: any[], path?: string[]) => T;
 
 export interface TransformOptions {
   undefinedToNull?: boolean;
-  emptyObjectToNull?: boolean;
+  noEmptyObjects?: boolean;
 }
 
 type GET_KEY<S, K> = K extends keyof S ? S[K] : undefined;
@@ -92,7 +92,7 @@ function setProperty<T extends {}, K extends keyof T>(
 ): void {
   if (value === undefined) {
     target[key] = options.undefinedToNull
-      ? null : undefined;
+      ? null as any: undefined as any;
 
   } else {
     target[key] = value;
@@ -100,7 +100,7 @@ function setProperty<T extends {}, K extends keyof T>(
 }
 
 // TODO: unescape pointer parts
-function getByPointer<S extends {}>(
+function getByPointer<S extends {} | null | undefined>(
   pointer: string,
   source: S,
   parents: any[]
@@ -110,7 +110,7 @@ function getByPointer<S extends {}>(
 
   try {
     const path = pointer.split(/\//g);
-    const base = path.shift();
+    const base = path.shift() || '';
 
     if (base === '#') {
       lastSource = parents[0] || source;
@@ -199,9 +199,10 @@ function makeTransformItem<T extends {}, S extends {}, K extends keyof T>(
         options);
 
       // empty object check
-      if (options.emptyObjectToNull &&
+      if (options.noEmptyObjects &&
           isEmptyObject(target[key])) {
-        target[key] = null;
+        target[key] = options.undefinedToNull
+          ? null as any : undefined as any;
       }
     };
 
@@ -212,7 +213,7 @@ function makeTransformItem<T extends {}, S extends {}, K extends keyof T>(
   }
 }
 
-export function squiggly<S extends {}, T extends {}>(
+export function squiggly<S extends {} | null | undefined, T extends {}>(
   transformMap: TransformMap<T, S>,
   options: TransformOptions = {}
 
@@ -229,7 +230,7 @@ export function squiggly<S extends {}, T extends {}>(
     // apply transform items
     for (const transformItem of transformItems) {
       try {
-        transformItem(target, source, parents, path);
+        transformItem(target, source as any, parents, path);
 
       } catch (err) {
         continue;
