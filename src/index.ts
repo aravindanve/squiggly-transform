@@ -73,8 +73,8 @@ function isTransformCustom<L, R>(value: any): value is TransformCustom<L, R> {
 
 function isTransformTuple<L>(value: any): value is TransformTuple<L> {
   return Array.isArray(value) &&
-    typeof value[0] === 'string' &&
-    typeof value[1] === 'function';
+    isPointer(value[0]) &&
+    isTransformCustom(value[1]);
 }
 
 function isTransformMap<T, S>(value: any): value is TransformMap<T, S> {
