@@ -15,18 +15,18 @@ Basic Usage:
 import { squiggly } from 'squiggly-transform';
 
 const transform = squiggly({
-    name: true,
-    profile: {
-        age: '#/age',
-        about: '1/about'
-    }
+  name: true,
+  profile: {
+    age: '#/age',
+    about: '1/about'
+  }
 });
 
 const result = transform({
-    name: 'Rosa',
-    age: 28,
-    about: null,
-    other: 289235
+  name: 'Rosa',
+  age: 28,
+  about: null,
+  other: 289235
 });
 
 /* result = {
@@ -42,25 +42,25 @@ Advanced Usage:
 ```ts
 /* types */
 interface Source {
-    name: string;
-    age: string;
-    website: string;
-    nested: {
-        description: string;
-    };
-    count: number;
-    category: string;
+  name: string;
+  age: string;
+  website: string;
+  nested: {
+    description: string;
+  };
+  count: number;
+  category: string;
 }
 
 interface Target {
-    name: string;
-    nested: {
-        description: string;
-        age: string;
-        website: string;
-    };
-    count: number;
-    categoryId: number;
+  name: string;
+  nested: {
+    description: string;
+    age: string;
+    website: string;
+  };
+  count: number;
+  categoryId: number;
 }
 
 
