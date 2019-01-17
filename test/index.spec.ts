@@ -148,6 +148,27 @@ describe('rule: function', () => {
     expect(transform({ value: 'hello' }).value).to.equal('hello1');
   });
 
+  it('should set statics', () => {
+    const transform = squiggly({
+      string: () => 'static',
+      number: () => 2355,
+      boolean: () => false,
+      null: () => null,
+      object: {
+        name: () => 'Hello World!'
+      },
+      array: () => [1, 2, 3]
+    });
+    const result = transform({});
+
+    expect(result.string).to.equal('static');
+    expect(result.number).to.equal(2355);
+    expect(result.boolean).to.equal(false);
+    expect(result.null).to.equal(null);
+    expect(stringify(result.object)).to.equal(stringify({ name: 'Hello World!' }));
+    expect(stringify(result.array)).to.equal(stringify([1, 2, 3]));
+  });
+
   it('should expose parents and path as arguments', () => {
     const transform = squiggly({ value: (value, parents, path) => {
       expect(parents).to.be.a('array');
@@ -194,10 +215,10 @@ describe('rule: tuple', () => {
   });
 });
 
-describe('Literals', () => {
-  it('should copy literals', () => {
+describe('rule: static', () => {
+  it('should copy statics', () => {
     const transform = squiggly({
-      string: 'literal',
+      string: 'static',
       number: 2355,
       boolean: false,
       null: null,
@@ -208,7 +229,7 @@ describe('Literals', () => {
     });
     const result = transform({});
 
-    expect(result.string).to.equal('literal');
+    expect(result.string).to.equal('static');
     expect(result.number).to.equal(2355);
     expect(result.boolean).to.equal(false);
     expect(result.null).to.equal(null);
