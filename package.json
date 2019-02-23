@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
