@@ -1,12 +1,12 @@
 {
   "name": "squiggly-transform",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Schema based object transforms in JS",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "directories": {
-    "test": "test"
-  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
     "build": "tsc --project tsconfig.json"
