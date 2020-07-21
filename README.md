@@ -1,5 +1,6 @@
 # Squiggly Transform
-##### By [@aravindanve](https://github.com/aravindanve)
+
+[![Coverage Status](https://coveralls.io/repos/aravindanve/squiggly-transform/badge.svg?branch=master)](https://coveralls.io/r/aravindanve/squiggly-transform?branch=master)
 
 Squiggly Transform allows you to transform objects or arrays of objects based on predetermined schema mappings.
 
@@ -88,7 +89,7 @@ const transform = squiggly<Source, Target>({
 });
 ```
 
-### Options:
+## Options:
 
 __`undefinedToNull`__
 
