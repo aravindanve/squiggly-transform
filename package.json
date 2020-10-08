@@ -1,6 +1,6 @@
 {
   "name": "squiggly-transform",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Schema based object transforms in JS",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
